@@ -5,6 +5,7 @@ using namespace std;
 
 // function prototypes
 int main();
+int daysOnTrip();
 double departure();
 double arrival();
 double roundTrip();
