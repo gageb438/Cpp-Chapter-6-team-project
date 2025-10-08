@@ -416,3 +416,6 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+Team Project/Team Project.sln
+*.vcxproj
+*.filters
