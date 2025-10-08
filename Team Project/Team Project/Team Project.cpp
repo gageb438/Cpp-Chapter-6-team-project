@@ -24,7 +24,18 @@ int main()
 
 int daysOnTrip()
 {
+	int days;
 	
+	cout << "Enter the number of days spent on trip :> ";
+	cin >> days;
+
+	while (days <= 0)
+	{
+		cout << "Enter the number of days spent on the trip :> ";
+		cin >> days;
+	}
+
+	return days;
 }
 
 double departure()
