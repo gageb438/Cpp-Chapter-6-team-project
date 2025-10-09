@@ -69,7 +69,15 @@ double carRentals()
 
 double milesDriven()
 {
-
+	cout << "how many miles did you drive? ";
+	double miles;
+	cin >> miles;
+	if (miles < 0)
+	{
+		cout << "invalid input, please enter a positive number" << endl;
+		cin >> miles;
+	}
+	return miles * 0.27;
 }
 
 double parkingFees()
