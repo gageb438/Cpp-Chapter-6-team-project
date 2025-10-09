@@ -70,6 +70,7 @@ double roundTrip()
 double carRentals()
 {
 	string carsUsed = "a";
+	double carCost = 0.0;
 
 	cout << "Did you use a rental car on the trip? (y/n) :> ";
 	cin >> carsUsed;
@@ -79,6 +80,19 @@ double carRentals()
 		cout << "Did you use a rental car on the trip? (y/n) :> ";
 		cin >> carsUsed;
 	}
+
+	if (carsUsed == "Y" || carsUsed == "y")
+	{
+		cout << "Enter the cost of the rentals : ";
+		cin >> carCost;
+
+		while (carCost < 0)
+		{
+			cin >> carCost;
+		}
+	}
+
+	return carCost;
 }
 
 double milesDriven()
@@ -148,63 +162,83 @@ double lodgingFees()
 
 double mealFees(double arrivalTime, double departureTime)
 {
-	double totalCost = -1.00, runningTotal = 0.0;
+	double runningTotal = 0.0;
 	const double aBreakfast = 7.00, aLunch = 12.00, aDinner = 19.00, bBreakfast = 8.00, bLunch = 13.00, bDinner = 19.00;
 	double aBreakfastCost = -1, aLunchCost = -1, aDinnerCost = -1, bBreakfastCost = -1, bLunchCost = -1, bDinnerCost = -1;
 
-	while (totalCost < 0)
+	if (arrivalTime < aBreakfast)
 	{
-		if (arrivalTime < aBreakfast)
+		while (aBreakfastCost < 0)
 		{
-			while (aBreakfastCost < 0)
-			{
-				cout << "Enter the cost of breakfast on the day of the arrival :> ";
-				cin >> aBreakfastCost;
-			}
+			cout << "Enter the cost of breakfast on the day of the arrival :> ";
+			cin >> aBreakfastCost;
+		}
 
-			if (aBreakfastCost > 9)
-			{ }
-			runningTotal = aBreakfastCost - 9
-		}
-		if (arrivalTime < aLunch)
-		{
-			while (aLunchCost < 0)
-			{
-				cout << "Enter the cost of lunch on the day of the arrival :> ";
-				cin >> aLunchCost;
-			}
-		}
-		if (arrivalTime < aDinner)
-		{
-			while (aDinnerCost < 0)
-			{
-				cout << "Enter the cost of dinner on the day of the arrival :> ";
-				cin >> aDinnerCost;
-			}
-		}
-		if (departureTime < bBreakfast)
-		{
-			while (bBreakfastCost < 0)
-			{
-				cout << "Enter the cost of breakfast on the day of departure :> ";
-				cin >> bBreakfastCost;
-			}
-		}
-		if (departureTime < bLunch)
-		{
-			while (bLunchCost < 0)
-			{
-				cout << "Enter the cost of lunch on the day of departure :> ";
-				cin >> bLunchCost;
-			}
-		}
-		if (departureTime < bDinner)
-		{
-			while (bDinnerCost < 0)
-			{
-				cout << "Enter the cost of dinner on the day of departure :> ";
-				cin >> bDinnerCost;
-			}
+		if (aBreakfastCost >= 9)
+		{ 
+			runningTotal += aBreakfastCost - 9;
 		}
 	}
+	if (arrivalTime < aLunch)
+	{
+		while (aLunchCost < 0)
+		{
+			cout << "Enter the cost of lunch on the day of the arrival :> ";
+			cin >> aLunchCost;
+		}
+		if (aLunchCost >= 12)
+		{
+			runningTotal += aBreakfastCost - 12;
+		}
+	}
+	if (arrivalTime < aDinner)
+	{
+		while (aDinnerCost < 0)
+		{
+			cout << "Enter the cost of dinner on the day of the arrival :> ";
+			cin >> aDinnerCost;
+		}
+		if (aDinnerCost >= 16)
+		{
+			runningTotal += aDinnerCost - 16;
+		}
+	}
+	if (departureTime < bBreakfast)
+	{
+		while (bBreakfastCost < 0)
+		{
+			cout << "Enter the cost of breakfast on the day of departure :> ";
+			cin >> bBreakfastCost;
+		}
+		if (bBreakfastCost >= 9)
+		{
+			runningTotal += bBreakfastCost - 9;
+		}
+	}
+	if (departureTime < bLunch)
+	{
+		while (bLunchCost < 0)
+		{
+			cout << "Enter the cost of lunch on the day of departure :> ";
+			cin >> bLunchCost;
+		}
+		if (bLunchCost >= 12)
+		{
+			runningTotal += bLunchCost - 12;
+		}
+	}
+	if (departureTime < bDinner)
+	{
+		while (bDinnerCost < 0)
+		{
+			cout << "Enter the cost of dinner on the day of departure :> ";
+			cin >> bDinnerCost;
+		}
+		if (bDinnerCost >= 16)
+		{
+			runningTotal += aBreakfastCost - 16;
+		}
+	}
+
+	return runningTotal;
 }
