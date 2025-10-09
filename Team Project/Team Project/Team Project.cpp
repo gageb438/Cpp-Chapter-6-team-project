@@ -41,7 +41,6 @@ double departure()
 		cin >> leave;
 	}
 	return leave;
-
 }
 
 double arrival()
@@ -52,7 +51,15 @@ double arrival()
 
 double roundTrip()
 {
-
+	cout << "what is the cost of your round trip airfare? ";
+	double cost;
+	cin >> cost;
+	if (cost < 0)
+	{
+		cout << "invalid input, please enter a positive number" << endl;
+		cin >> cost;
+	}
+	return cost;
 }
 
 double carRentals()
