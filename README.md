@@ -1,5 +1,5 @@
 # Chapter 6 team project
-Gage, Jacob
+Gage, Jacob, oliver
 
 ## Travel Expenses Description
 
