@@ -58,7 +58,7 @@ Gage, Jacob
 | and returns total (double) |
 ***
 
-| `taxiFees` | | jacob |
+| `taxiFees` | | oliver |
 | -- | -- | -- |
 | accepts no arugments|
 | asks for hte number of days a taxi was used.|
@@ -74,7 +74,7 @@ Gage, Jacob
 | and returns it|
 ***
 
-| `lodgingFees` | | jacob |
+| `lodgingFees` | | oliver |
 | -- | -- | -- |
 | accepts an argument for the number of days spent on the trip|
 | asks for lodging fees |
