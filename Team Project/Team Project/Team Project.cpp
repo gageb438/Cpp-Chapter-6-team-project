@@ -29,8 +29,19 @@ int daysOnTrip()
 
 double departure()
 {
+	double leave;
+	string ampm;
 	// accept a double like XX.XX
 	// and make sure its >=00.00 and <= 24.00
+	cout << "enter the time you are leaving in 24-hour format: ";
+	cin >> leave;
+	if (leave < 0 || leave > 24)
+	{
+		cout << "invalid input, please enter a time between 00.00 and 24.00" << endl;
+		cin >> leave;
+	}
+	return leave;
+
 }
 
 double arrival()
