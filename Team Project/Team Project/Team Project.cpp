@@ -15,7 +15,7 @@ double parkingFees();
 double taxiFees();
 double conferenceFees();
 double lodgingFees();
-double mealFees(double arrivalTime, double departureTime);
+double mealFees(double arrivalTime, double departureTime, int days);
 
 int main()
 {
@@ -121,149 +121,154 @@ double lodgingFees()
 
 }
 
-double mealFees(double arrivalTime, double departureTime, int days)
+double mealFees(double returntime, double departure, int days)
 {
-	int cost = 0.0, allowableTotal = 0.0, runningTotal = 0.0;
+    double allocated = 0.0;
+    double runningCost = 0.0;
+    double currentCost = 0.0;
 
-	for (int day = 0; day != days; ++day)
-	{
-		cout << "Day " << day << ":> ";
+    for (int day = 1; day <= days; day++)
+    {
+        cout << "Day " << day << ": " << endl;
 
-		if (day == 1)
-		{
-			if (departureTime < 7)
-			{
-				cout << "Enter the amount spent for breakfast: ";
-				cin >> cost;
-				
-				while (cost < 0.0)
-				{
-					cout << "Enter the amount spent for breakfast: ";
-					cin >> cost;
-				}
-				
-				runningTotal + cost;
-				allowableTotal + 9
-			}
-			if (departureTime < 12)
-			{
-				cout << "Enter the amount spent for lunch: ";
-				cin >> cost;
+        if (day == 1)
+        {
+            if (departure > 18.00)
+            {
+                cout << "No meals allowed due to departure after 6 pm.";
+            }
+            if (departure < 7.00)
+            {
+                cout << "Enter the amount spent for breakfast: ";
+                cin >> currentCost;
 
-				while (cost < 0.0)
-				{
-					cout << "Enter the amount spent for lunch: ";
-					cin >> cost;
-				}
+                while (currentCost < 0)
+                {
+                    cout << "Enter the amount spent for breakfast: ";
+                    cin >> currentCost;
+                }
 
-				runningTotal + cost;
-				allowableTotal + 12
-			}
-			if (departureTime < 16)
-			{
-				cout << "Enter the amount spent for dinner: ";
-				cin >> cost;
+                runningCost += currentCost;
+                allocated += 9;
+            }
+            if (departure < 12.00)
+            {
+                cout << "Enter the amount spent for lunch: ";
+                cin >> currentCost;
 
-				while (cost < 0.0)
-				{
-					cout << "Enter the amount spent for dinner: ";
-					cin >> cost;
-				}
+                while (currentCost < 0)
+                {
+                    cout << "Enter the amount spent for lunch: ";
+                    cin >> currentCost;
+                }
 
-				runningTotal + cost;
-				allowableTotal + 16
-			}
+                runningCost += currentCost;
+                allocated += 12;
+            }
+            if (departure < 18.00)
+            {
+                cout << "Enter the amount spent for dinner: ";
+                cin >> currentCost;
 
-		if (day == days)
-		{
-			if (arrivalTime > 8)
-			{
-				cout << "Enter the amount spent for breakfast: ";
-				cin >> cost;
-				
-				while (cost < 0.0)
-				{
-					cout << "Enter the amount spent for breakfast: ";
-					cin >> cost;
-				}
-				
-				runningTotal + cost;
-				allowableTotal + 9
-			}
-			if (arrivalTime > 13)
-			{
-				cout << "Enter the amount spent for lunch: ";
-				cin >> cost;
+                while (currentCost < 0)
+                {
+                    cout << "Enter the amount spent for dinner: ";
+                    cin >> currentCost;
+                }
 
-				while (cost < 0.0)
-				{
-					cout << "Enter the amount spent for lunch: ";
-					cin >> cost;
-				}
+                runningCost += currentCost;
+                allocated += 16;
+            }
+        }
+        else if (day == days)
+        {
+            if (returntime < 8.00)
+            {
+                cout << "No meals allowed due to arrival before 8 am.";
+            }
+            if (returntime > 8.00)
+            {
+                cout << "Enter the amount spent for breakfast: ";
+                cin >> currentCost;
 
-				runningTotal + cost;
-				allowableTotal + 12
-			}
-			if (arrivalTime > 16)
-			{
-				cout << "Enter the amount spent for dinner: ";
-				cin >> cost;
+                while (currentCost < 0)
+                {
+                    cout << "Enter the amount spent for breakfast: ";
+                    cin >> currentCost;
+                }
 
-				while (cost < 0.0)
-				{
-					cout << "Enter the amount spent for dinner: ";
-					cin >> cost;
-				}
+                runningCost += currentCost;
+                allocated += 9;
+            }
+            if (departure > 13.00)
+            {
+                cout << "Enter the amount spent for lunch: ";
+                cin >> currentCost;
 
-				runningTotal + cost;
-				allowableTotal + 16
-			}
-			if (day == 1)
-			{
-				if (departureTime < 7)
-				{
-					cout << "Enter the amount spent for breakfast: ";
-					cin >> cost;
+                while (currentCost < 0)
+                {
+                    cout << "Enter the amount spent for lunch: ";
+                    cin >> currentCost;
+                }
 
-					while (cost < 0.0)
-					{
-						cout << "Enter the amount spent for breakfast: ";
-						cin >> cost;
-					}
+                runningCost += currentCost;
+                allocated += 12;
+            }
+            if (departure > 19.00)
+            {
+                cout << "Enter the amount spent for dinner: ";
+                cin >> currentCost;
 
-					runningTotal + cost;
-					allowableTotal + 9
-				}
-				if (departureTime < 12)
-				{
-					cout << "Enter the amount spent for lunch: ";
-					cin >> cost;
+                while (currentCost < 0)
+                {
+                    cout << "Enter the amount spent for dinner: ";
+                    cin >> currentCost;
+                }
 
-					while (cost < 0.0)
-					{
-						cout << "Enter the amount spent for lunch: ";
-						cin >> cost;
-					}
+                runningCost += currentCost;
+                allocated += 16;
+            }
+        }
+        else
+        {
+            cout << "Enter the amount spent for breakfast: ";
+            cin >> currentCost;
 
-					runningTotal + cost;
-					allowableTotal + 12
-				}
-				if (departureTime < 16)
-				{
-					cout << "Enter the amount spent for dinner: ";
-					cin >> cost;
+            while (currentCost < 0)
+            {
+                cout << "Enter the amount spent for breakfast: ";
+                cin >> currentCost;
+            }
 
-					while (cost < 0.0)
-					{
-						cout << "Enter the amount spent for dinner: ";
-						cin >> cost;
-					}
+            runningCost += currentCost;
+            allocated += 9;
 
-					runningTotal + cost;
-					allowableTotal + 16
-				}
-		}
-	}
+            cout << "Enter the amount spent for lunch: ";
+            cin >> currentCost;
 
-	return runningTotal;
+            while (currentCost < 0)
+            {
+                cout << "Enter the amount spent for lunch: ";
+                cin >> currentCost;
+            }
+
+            runningCost += currentCost;
+            allocated += 12;
+
+            cout << "Enter the amount spent for dinner: ";
+            cin >> currentCost;
+
+            while (currentCost < 0)
+            {
+                cout << "Enter the amount spent for dinner: ";
+                cin >> currentCost;
+            }
+
+            runningCost += currentCost;
+            allocated += 16;
+        }
+    }
+
+    return runningCost, allocated;
+
 }
