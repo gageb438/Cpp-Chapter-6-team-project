@@ -19,23 +19,47 @@ double mealFees(double arrivalTime, double departureTime, int days);
 
 int main()
 {
-    double runningTotal = 0.0, currentcost = 0.0, allocated = 0.0, currentallocated = 0.0;
+    double runningTotal = 0.0, runningAllocated = 0.0, allocated, fees, departureTime, returnTime;
+
     int days = daysOnTrip();
-    double departureTime = departure();
-    double arrivalTime = arrival();
-    runningTotal += roundTrip();
-    runningTotal += carRentals();
-    runningTotal += milesDriven();
-    runningTotal += parkingFees(days);
-    runningTotal += taxiFees(days);
-    runningTotal += conferenceFees();
-    runningTotal += lodgingFees(days);
-    currentcost, currentallocated = mealFees(arrivalTime, departureTime, days);
-    runningTotal += currentcost;
-    allocated += currentallocated;
 
-    cout << "Total expenses: " << runningTotal;
+    departureTime = departure();
+    returnTime = arrival();
 
+    fees = roundTrip();
+    runningTotal += fees;
+    runningAllocated += fees;
+
+    fees = carRentals();
+    runningTotal += fees;
+    runningAllocated += fees;
+
+    fees = milesDriven();
+    runningTotal += fees;
+    runningAllocated += fees;
+
+    fees, allocated = parkingFees(days);
+    runningTotal += fees;
+    runningAllocated += allocated;
+
+    fees, allocated = taxiFees(days);
+    runningTotal += fees;
+    runningAllocated += allocated;
+
+    fees = conferenceFees();
+    runningTotal += fees;
+    runningAllocated += fees;
+
+    fees, allocated = lodgingFees(days);
+    runningTotal += fees;
+    runningAllocated += allocated;
+
+    fees, allocated = mealFees(returnTime, departureTime, days);
+    runningTotal += fees;
+    runningAllocated += allocated;
+
+    cout << "Total expenses: " << runningTotal << endl;;
+    cout << "Allowable expenses: " << runningAllocated << endl;;
     return 0;
 }
 
@@ -147,12 +171,10 @@ double parkingFees(int days)
 double taxiFees(int days)
 {
 	double taxiCost = -1.0, allocated = 0;
-    cout << endl;
     while (taxiCost < 0)
     {
         cout << "Enter the amount of taxi fees :> ";
         cin >> taxiCost;
-        cout << endl;
     }
 	allocated = days *10;
 	if (taxiCost <= 0)
@@ -181,7 +203,6 @@ double lodgingFees(int days)
     double allocated = days * 90;
 	cout << "Enter the amount of lodging fees :> ";
 	cin >> lodgingFees;
-	cout << endl;
 	
 	while (lodgingFees <= 0)
 	{
