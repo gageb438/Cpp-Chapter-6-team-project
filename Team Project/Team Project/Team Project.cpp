@@ -12,14 +12,30 @@ double roundTrip();
 double carRentals();
 double milesDriven();
 double parkingFees();
-double taxiFees();
+double taxiFees(int days);
 double conferenceFees();
 double lodgingFees(int days);
 double mealFees(double arrivalTime, double departureTime, int days);
 
 int main()
 {
+    double runningTotal = 0.0, cost = 0.0, allocated = 0.0;
+    int days = daysOnTrip();
+    double departureTime = departure();
+    double arrivalTime = arrival();
+    runningTotal += roundTrip();
+    runningTotal += carRentals();
+    runningTotal += milesDriven();
+    runningTotal += parkingFees();
+    runningTotal += taxiFees(days);
+    runningTotal += conferenceFees();
+    runningTotal += lodgingFees(days);
+    cost, allocated = mealFees(arrivalTime, departureTime, days);
+    runningTotal += cost;
 
+    cout << "Total expenses: " << runningTotal;
+
+    return 0;
 }
 
 int daysOnTrip()
@@ -124,15 +140,13 @@ double parkingFees()
 	return fees;
 }
 
-double taxiFees()
+double taxiFees(int days)
 {
-	double taxiCost, taxiDays;
-	cout << "Enter the number of days a taxi was used :> ";
-	cin >> taxiDays;
+	double taxiCost;
 	cout << endl << "Enter the amount of taxi fees :> ";
 	cin >> taxiCost;
 	cout << endl;
-	taxiCost -= taxiDays *10;
+	taxiCost -= days *10;
 	if (taxiCost <= 0)
 	{
 		return 0;
