@@ -19,7 +19,7 @@ double mealFees(double arrivalTime, double departureTime, int days);
 
 int main()
 {
-    double runningTotal = 0.0, cost = 0.0, allocated = 0.0;
+    double runningTotal = 0.0, currentcost = 0.0, allocated = 0.0, currentallocated = 0.0;
     int days = daysOnTrip();
     double departureTime = departure();
     double arrivalTime = arrival();
@@ -30,8 +30,9 @@ int main()
     runningTotal += taxiFees(days);
     runningTotal += conferenceFees();
     runningTotal += lodgingFees(days);
-    cost, allocated = mealFees(arrivalTime, departureTime, days);
-    runningTotal += cost;
+    currentcost, currentallocated = mealFees(arrivalTime, departureTime, days);
+    runningTotal += currentcost;
+    allocated += currentallocated;
 
     cout << "Total expenses: " << runningTotal;
 
@@ -170,15 +171,18 @@ double conferenceFees()
 double lodgingFees(int days)
 {
 	double lodgingFees;
+    double allocated = days * 90;
 	cout << "Enter the amount of lodging fees :> ";
 	cin >> lodgingFees;
 	cout << endl;
-	lodgingFees -= days * 90;
-	if (lodgingFees <= 0)
+	
+	while (lodgingFees <= 0)
 	{
-		return 0;
+        cout << "Enter the amount of lodging fees :> ";
+        cin >> lodgingFees;
 	}
-	return lodgingFees;
+
+	return lodgingFees, allocated;
 }
 
 double mealFees(double returntime, double departure, int days)
