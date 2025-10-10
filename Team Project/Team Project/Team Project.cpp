@@ -11,7 +11,7 @@ double arrival();
 double roundTrip();
 double carRentals();
 double milesDriven();
-double parkingFees();
+double parkingFees(int days);
 double taxiFees(int days);
 double conferenceFees();
 double lodgingFees(int days);
@@ -26,7 +26,7 @@ int main()
     runningTotal += roundTrip();
     runningTotal += carRentals();
     runningTotal += milesDriven();
-    runningTotal += parkingFees();
+    runningTotal += parkingFees(days);
     runningTotal += taxiFees(days);
     runningTotal += conferenceFees();
     runningTotal += lodgingFees(days);
@@ -127,31 +127,38 @@ double milesDriven()
 	return miles * 0.27;
 }
 
-double parkingFees()
+double parkingFees(int days)
 {
-	double fees = -1.0;
-
-	while (fees < 0.0)
-	{
-		cout << "Enter the amount of parking fees :> ";
-		cin >> fees;
-	}
-
-	return fees;
+	double parkCost = -1.0, allocated = 0.0;
+    while (parkCost < 0)
+    {
+        cout << "Enter the amount of parking fees :> ";
+        cin >> parkCost;
+    }
+    allocated = days * 6;
+    if (parkCost <= 0)
+    {
+        return 0, allocated;
+    }
+    return parkCost, allocated;
 }
 
 double taxiFees(int days)
 {
-	double taxiCost;
-	cout << endl << "Enter the amount of taxi fees :> ";
-	cin >> taxiCost;
-	cout << endl;
-	taxiCost -= days *10;
+	double taxiCost = -1.0, allocated = 0;
+    cout << endl;
+    while (taxiCost < 0)
+    {
+        cout << "Enter the amount of taxi fees :> ";
+        cin >> taxiCost;
+        cout << endl;
+    }
+	allocated = days *10;
 	if (taxiCost <= 0)
 	{
-		return 0;
+		return 0, allocated;
 	}
-	return taxiCost;
+	return taxiCost, allocated;
 }
 
 double conferenceFees()
