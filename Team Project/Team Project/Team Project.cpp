@@ -14,7 +14,7 @@ double milesDriven();
 double parkingFees();
 double taxiFees();
 double conferenceFees();
-double lodgingFees();
+double lodgingFees(int days);
 double mealFees(double arrivalTime, double departureTime, int days);
 
 int main()
