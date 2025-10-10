@@ -100,7 +100,18 @@ double parkingFees()
 
 double taxiFees()
 {
-	
+	double taxiCost, taxiDays;
+	cout << "Enter the number of days a taxi was used :> ";
+	cin >> taxiDays;
+	cout << endl << "Enter the amount of taxi fees :> ";
+	cin >> taxiCost;
+	cout << endl;
+	taxiCost -= taxiDays *10;
+	if (taxiCost <= 0)
+	{
+		return 0;
+	}
+	return taxiCost;
 }
 
 double conferenceFees()
@@ -116,9 +127,18 @@ double conferenceFees()
 	return cost;
 }
 
-double lodgingFees()
+double lodgingFees(int days)
 {
-
+	double lodgingFees;
+	cout << "Enter the amount of lodging fees :> ";
+	cin >> lodgingFees;
+	cout << endl;
+	lodgingFees -= days * 90;
+	if (lodgingFees <= 0)
+	{
+		return 0;
+	}
+	return lodgingFees;
 }
 
 double mealFees(double returntime, double departure, int days)
