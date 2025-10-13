@@ -5,68 +5,69 @@ using namespace std;
 
 // function prototypes
 int main();
-int daysOnTrip();
-double departure();
-double arrival();
-double roundTrip();
-double carRentals();
-double milesDriven();
-double parkingFees(int days);
-double taxiFees(int days);
-double conferenceFees();
-double lodgingFees(int days);
-double mealFees(double arrivalTime, double departureTime, int days);
+void daysOnTrip(int& days);
+void departure(double& leave);
+void arrival(double& arrivalTime);
+void roundTrip(double& cost);
+void carRentals(double& carCost);
+void milesDriven(double& miles);
+void parkingFees(int days, double& allocated, double& parkCost);
+void taxiFees(int days, double& taxiCost, double& allocated);
+void conferenceFees(double& cost);
+void lodgingFees(int days, double& lodgingFees, double& allocated);
+void mealFees(double returntime, double departure, int days, double &allocated, double& runningCost);
 
 int main()
 {
-    double runningTotal = 0.0, runningAllocated = 0.0, allocated, fees, departureTime, returnTime;
+    double runningTotal = 0.0, runningAllocated = 0.0, allocated = 0, fees = 0, departureTime = 0, returnTime = 0;
 
-    int days = daysOnTrip();
+    int days = 0;
+    daysOnTrip(days);
 
-    departureTime = departure();
-    returnTime = arrival();
+    departure(departureTime);
 
-    fees = roundTrip();
+    arrival(returnTime);
+
+    roundTrip(fees);
     runningTotal += fees;
     runningAllocated += fees;
 
-    fees = carRentals();
+    carRentals(fees);
     runningTotal += fees;
     runningAllocated += fees;
 
-    fees = milesDriven();
+    milesDriven(fees);
     runningTotal += fees;
     runningAllocated += fees;
 
-    fees, allocated = parkingFees(days);
+    parkingFees(days, allocated, fees);
     runningTotal += fees;
     runningAllocated += allocated;
 
-    fees, allocated = taxiFees(days);
+    taxiFees(days, fees, allocated);
     runningTotal += fees;
     runningAllocated += allocated;
 
-    fees = conferenceFees();
+    conferenceFees(fees);
     runningTotal += fees;
     runningAllocated += fees;
 
-    fees, allocated = lodgingFees(days);
+    lodgingFees(days, fees, allocated);
     runningTotal += fees;
     runningAllocated += allocated;
 
-    fees, allocated = mealFees(returnTime, departureTime, days);
+    mealFees(returnTime, departureTime, days, allocated, fees);
     runningTotal += fees;
     runningAllocated += allocated;
 
-    cout << "Total expenses: " << runningTotal << endl;;
-    cout << "Allowable expenses: " << runningAllocated << endl;;
+    cout << endl << "Total Expenses: $" << runningTotal << endl;
+    cout << endl << "Allowable expenses: $" << runningAllocated << endl;
+
     return 0;
 }
 
-int daysOnTrip()
+void daysOnTrip(int& days)
 {
-	int days;
-	
 	cout << "Enter the number of days spent on trip :> ";
 	cin >> days;
 
@@ -75,14 +76,10 @@ int daysOnTrip()
 		cout << "Enter the number of days spent on the trip :> ";
 		cin >> days;
 	}
-
-	return days;
 }
 
-double departure()
+void departure(double& leave)
 {
-	double leave;
-	string ampm;
 	// accept a double like XX.XX
 	// and make sure its >=00.00 and <= 24.00
 	cout << "enter the time you are leaving in 24-hour format: ";
@@ -92,15 +89,13 @@ double departure()
 		cout << "invalid input, please enter a time between 00.00 and 24.00" << endl;
 		cin >> leave;
 	}
-	return leave;
 }
 
-double arrival()
+void arrival(double& arrivalTime)
 {
 	// accept a double like XX.XX
 	// and make sure its >=00.00 and <= 24.00
 
-	double arrivalTime = -1.00;
 	cout << "Enter the return time (HH.MM) :> ";
 	cin >> arrivalTime;
 
@@ -109,114 +104,87 @@ double arrival()
 		cout << "Enter the return time (HH.MM) :> ";
 		cin >> arrivalTime;
 	}
-
-	return arrivalTime;
 }
 
-double roundTrip()
+void roundTrip(double& cost)
 {
 	cout << "what is the cost of your round trip airfare? ";
-	double cost;
 	cin >> cost;
-	if (cost < 0)
+	while (cost < 0)
 	{
 		cout << "invalid input, please enter a positive number" << endl;
 		cin >> cost;
 	}
-	return cost;
 }
 
-double carRentals()
+void carRentals(double& carCost)
 {
-	double carCost = -1.0;
-	
-	while (carCost < 0.0)
-	{
-		cout << "Enter the amount of car rental fees :> ";
-		cin >> carCost;
-	}
-
-	return carCost;
+    do
+    {
+        cout << "Enter the amount of car rental fees :> ";
+        cin >> carCost;
+    } while (carCost < 0.0);
 }
 
-double milesDriven()
+void milesDriven(double& miles)
 {
 	cout << "how many miles did you drive? ";
-	double miles;
 	cin >> miles;
-	if (miles < 0)
+	while (miles < 0)
 	{
 		cout << "invalid input, please enter a positive number" << endl;
 		cin >> miles;
 	}
-	return miles * 0.27;
 }
 
-double parkingFees(int days)
+void parkingFees(int days, double& allocated, double& parkCost)
 {
-	double parkCost = -1.0, allocated = 0.0;
-    while (parkCost < 0)
+    do
     {
         cout << "Enter the amount of parking fees :> ";
         cin >> parkCost;
-    }
+    } while (parkCost < 0);
+
     allocated = days * 6;
-    if (parkCost <= 0)
-    {
-        return 0, allocated;
-    }
-    return parkCost, allocated;
 }
 
-double taxiFees(int days)
+void taxiFees(int days, double& taxiCost, double& allocated)
 {
-	double taxiCost = -1.0, allocated = 0;
-    while (taxiCost < 0)
+    do
     {
         cout << "Enter the amount of taxi fees :> ";
         cin >> taxiCost;
-    }
+    } while (taxiCost < 0);
+
 	allocated = days *10;
-	if (taxiCost <= 0)
-	{
-		return 0, allocated;
-	}
-	return taxiCost, allocated;
 }
 
-double conferenceFees()
+void conferenceFees(double& cost)
 {
-	double cost = -1;
-
-	while (cost < 0.0)
+	do
 	{
 		cout << "Enter the fees for conference / seminars :> ";
 		cin >> cost;
-	}
-
-	return cost;
+    } while (cost < 0.0);
 }
 
-double lodgingFees(int days)
+void lodgingFees(int days, double& lodgingFees, double& allocated)
 {
-	double lodgingFees;
-    double allocated = days * 90;
-	cout << "Enter the amount of lodging fees :> ";
+    allocated = days * 90;
+	cout << "Enter the nightly hotel fees :> ";
 	cin >> lodgingFees;
 	
 	while (lodgingFees <= 0)
 	{
-        cout << "Enter the amount of lodging fees :> ";
+        cout << "Enter the nightly hotel fees :> ";
         cin >> lodgingFees;
 	}
 
-	return lodgingFees, allocated;
+    lodgingFees *= days;
 }
 
-double mealFees(double returntime, double departure, int days)
+void mealFees(double returntime, double departure, int days, double& allocated, double& runningCost)
 {
-    double allocated = 0.0;
-    double runningCost = 0.0;
     double currentCost = 0.0;
 
     for (int day = 1; day <= days; day++)
@@ -360,7 +328,4 @@ double mealFees(double returntime, double departure, int days)
             allocated += 16;
         }
     }
-
-    return runningCost, allocated;
-
 }
