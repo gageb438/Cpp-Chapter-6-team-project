@@ -21,7 +21,7 @@ int main()
 {
     double runningTotal = 0.0, runningAllocated = 0.0, allocated = 0, fees = 0, departureTime = 0, returnTime = 0;
 
-    int days = 0;
+        int days = 0;
     daysOnTrip(days);
 
     departure(departureTime);
@@ -56,6 +56,8 @@ int main()
     runningTotal += fees;
     runningAllocated += allocated;
 
+    allocated = 0.0;
+    fees = 0.0;
     mealFees(returnTime, departureTime, days, allocated, fees);
     runningTotal += fees;
     runningAllocated += allocated;
@@ -183,7 +185,7 @@ void conferenceFees(double& cost)
 
 void lodgingFees(int days, double& lodgingFees, double& allocated)
 {
-    allocated = days * 90;
+    allocated = (days-1) * 90;
 	cout << "Enter the nightly hotel fees :> ";
 	cin >> lodgingFees;
 	
@@ -193,7 +195,7 @@ void lodgingFees(int days, double& lodgingFees, double& allocated)
         cin >> lodgingFees;
 	}
 
-    lodgingFees *= days;
+    lodgingFees *= (days-1);
 }
 
 void mealFees(double returntime, double departure, int days, double& allocated, double& runningCost)
