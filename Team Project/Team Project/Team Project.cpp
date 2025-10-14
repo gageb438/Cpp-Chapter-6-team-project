@@ -63,6 +63,19 @@ int main()
     cout << endl << "Total Expenses: $" << runningTotal << endl;
     cout << endl << "Allowable expenses: $" << runningAllocated << endl;
 
+    double reimb = 0;
+
+    reimb = runningAllocated - runningTotal;
+
+    if (reimb < 0)
+    {
+        cout << "You saved " << reimb * -1;
+    }
+    else
+    {
+        cout << "Amount to be reimbursed: $" << reimb;
+    }
+
     return 0;
 }
 
