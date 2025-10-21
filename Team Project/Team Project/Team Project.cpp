@@ -21,7 +21,7 @@ int main()
 {
     double runningTotal = 0.0, runningAllocated = 0.0, allocated = 0, fees = 0, departureTime = 0, returnTime = 0;
 
-        int days = 0;
+    int days = 0;
     daysOnTrip(days);
 
     departure(departureTime);
@@ -32,26 +32,34 @@ int main()
     runningTotal += fees;
     runningAllocated += fees;
 
+    fees = 0.0;
     carRentals(fees);
     runningTotal += fees;
     runningAllocated += fees;
 
+    fees = 0.0;
     milesDriven(fees);
     runningTotal += fees;
     runningAllocated += fees;
 
+    fees = 0.0;
     parkingFees(days, allocated, fees);
     runningTotal += fees;
     runningAllocated += allocated;
 
+    fees = 0.0;
+    allocated = 0.0;
     taxiFees(days, fees, allocated);
     runningTotal += fees;
     runningAllocated += allocated;
 
+    fees = 0.0;
+    allocated = 0.0;
     conferenceFees(fees);
     runningTotal += fees;
     runningAllocated += fees;
 
+    fees = 0.0;
     lodgingFees(days, fees, allocated);
     runningTotal += fees;
     runningAllocated += allocated;
@@ -61,6 +69,8 @@ int main()
     mealFees(returnTime, departureTime, days, allocated, fees);
     runningTotal += fees;
     runningAllocated += allocated;
+
+    cout << fixed << showpoint << setprecision(2);
 
     cout << endl << "Total Expenses: $" << runningTotal << endl;
     cout << endl << "Allowable expenses: $" << runningAllocated << endl;
@@ -143,13 +153,16 @@ void carRentals(double& carCost)
 
 void milesDriven(double& miles)
 {
+    double milesD;
 	cout << "how many miles did you drive? ";
-	cin >> miles;
+	cin >> milesD;
 	while (miles < 0)
 	{
 		cout << "invalid input, please enter a positive number" << endl;
-		cin >> miles;
+		cin >> milesD;
 	}
+
+    miles = milesD * .27;
 }
 
 void parkingFees(int days, double& allocated, double& parkCost)
@@ -171,7 +184,7 @@ void taxiFees(int days, double& taxiCost, double& allocated)
         cin >> taxiCost;
     } while (taxiCost < 0);
 
-	allocated = days *10;
+	allocated = days * 10;
 }
 
 void conferenceFees(double& cost)
@@ -185,17 +198,18 @@ void conferenceFees(double& cost)
 
 void lodgingFees(int days, double& lodgingFees, double& allocated)
 {
-    allocated = (days-1) * 90;
+    double nightly;
+    allocated = 90 * (days - 1);
 	cout << "Enter the nightly hotel fees :> ";
-	cin >> lodgingFees;
+	cin >> nightly;
 	
-	while (lodgingFees <= 0)
+	while (nightly <= 0)
 	{
         cout << "Enter the nightly hotel fees :> ";
-        cin >> lodgingFees;
+        cin >> nightly;
 	}
 
-    lodgingFees *= (days-1);
+    lodgingFees = nightly * (days - 1);
 }
 
 void mealFees(double returntime, double departure, int days, double& allocated, double& runningCost)
@@ -212,48 +226,52 @@ void mealFees(double returntime, double departure, int days, double& allocated, 
             {
                 cout << "No meals allowed due to departure after 6 pm.";
             }
-            if (departure < 7.00)
+            else
             {
-                cout << "Enter the amount spent for breakfast: ";
-                cin >> currentCost;
-
-                while (currentCost < 0)
+                if (departure < 7.00)
                 {
                     cout << "Enter the amount spent for breakfast: ";
                     cin >> currentCost;
+
+                    while (currentCost < 0)
+                    {
+                        cout << "Enter the amount spent for breakfast: ";
+                        cin >> currentCost;
+                    }
+
+                    runningCost += currentCost;
+                    allocated += 9;
                 }
-
-                runningCost += currentCost;
-                allocated += 9;
-            }
-            if (departure < 12.00)
-            {
-                cout << "Enter the amount spent for lunch: ";
-                cin >> currentCost;
-
-                while (currentCost < 0)
+                if (departure < 12.00)
                 {
                     cout << "Enter the amount spent for lunch: ";
                     cin >> currentCost;
+
+                    while (currentCost < 0)
+                    {
+                        cout << "Enter the amount spent for lunch: ";
+                        cin >> currentCost;
+                    }
+
+                    runningCost += currentCost;
+                    allocated += 12;
                 }
-
-                runningCost += currentCost;
-                allocated += 12;
-            }
-            if (departure < 18.00)
-            {
-                cout << "Enter the amount spent for dinner: ";
-                cin >> currentCost;
-
-                while (currentCost < 0)
+                if (departure < 18.00)
                 {
                     cout << "Enter the amount spent for dinner: ";
                     cin >> currentCost;
-                }
 
-                runningCost += currentCost;
-                allocated += 16;
+                    while (currentCost < 0)
+                    {
+                        cout << "Enter the amount spent for dinner: ";
+                        cin >> currentCost;
+                    }
+
+                    runningCost += currentCost;
+                    allocated += 16;
+                }
             }
+            
         }
         else if (day == days)
         {
@@ -275,7 +293,7 @@ void mealFees(double returntime, double departure, int days, double& allocated, 
                 runningCost += currentCost;
                 allocated += 9;
             }
-            if (departure > 13.00)
+            if (returntime > 13.00)
             {
                 cout << "Enter the amount spent for lunch: ";
                 cin >> currentCost;
@@ -289,7 +307,7 @@ void mealFees(double returntime, double departure, int days, double& allocated, 
                 runningCost += currentCost;
                 allocated += 12;
             }
-            if (departure > 19.00)
+            if (returntime > 19.00)
             {
                 cout << "Enter the amount spent for dinner: ";
                 cin >> currentCost;
