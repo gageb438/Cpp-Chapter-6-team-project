@@ -81,7 +81,7 @@ int main()
 
     if (reimb < 0)
     {
-        cout << "You saved " << reimb * -1;
+        cout << "You saved $" << reimb * -1;
     }
     else
     {
@@ -109,7 +109,7 @@ void departure(double& leave)
 	// and make sure its >=00.00 and <= 24.00
 	cout << "enter the time you are leaving in 24-hour format: ";
 	cin >> leave;
-	if (leave < 0 || leave > 24)
+	while (leave < 0.0 || leave > 24.0)
 	{
 		cout << "invalid input, please enter a time between 00.00 and 24.00" << endl;
 		cin >> leave;
@@ -124,7 +124,7 @@ void arrival(double& arrivalTime)
 	cout << "Enter the return time (HH.MM) :> ";
 	cin >> arrivalTime;
 
-	while (arrivalTime < 0.00 && arrivalTime > 24.00)
+	while (arrivalTime < 0.00 || arrivalTime > 24.00)
 	{
 		cout << "Enter the return time (HH.MM) :> ";
 		cin >> arrivalTime;
@@ -156,7 +156,7 @@ void milesDriven(double& miles)
     double milesD;
 	cout << "how many miles did you drive? ";
 	cin >> milesD;
-	while (miles < 0)
+	while (milesD < 0)
 	{
 		cout << "invalid input, please enter a positive number" << endl;
 		cin >> milesD;
@@ -173,7 +173,9 @@ void parkingFees(int days, double& allocated, double& parkCost)
         cin >> parkCost;
     } while (parkCost < 0);
 
-    allocated = days * 6;
+    // allowed up to $6 per day; allowable is the lesser of actual fees and the cap
+    double cap = days * 6.0;
+    allocated = (parkCost < cap) ? parkCost : cap;
 }
 
 void taxiFees(int days, double& taxiCost, double& allocated)
@@ -184,7 +186,16 @@ void taxiFees(int days, double& taxiCost, double& allocated)
         cin >> taxiCost;
     } while (taxiCost < 0);
 
-	allocated = days * 10;
+    // allowed up to $10 per day; allowable is the lesser of actual fees and the cap
+	 double cap = days * 10.0;
+     if (taxiCost < cap)
+     {
+         allocated = taxiCost;
+     }
+     else
+     {
+		 allocated = cap;
+     }
 }
 
 void conferenceFees(double& cost)
@@ -199,7 +210,6 @@ void conferenceFees(double& cost)
 void lodgingFees(int days, double& lodgingFees, double& allocated)
 {
     double nightly;
-    allocated = 90 * (days - 1);
 	cout << "Enter the nightly hotel fees :> ";
 	cin >> nightly;
 	
@@ -209,7 +219,19 @@ void lodgingFees(int days, double& lodgingFees, double& allocated)
         cin >> nightly;
 	}
 
+    // actual total lodging cost
     lodgingFees = nightly * (days - 1);
+
+    // company allows up to $90 per night
+    double cap = 90.0 * (days - 1);
+    if (lodgingFees < cap)
+    {
+        allocated = lodgingFees;
+    }
+    else
+    {
+		allocated = cap;
+    }
 }
 
 void mealFees(double returntime, double departure, int days, double& allocated, double& runningCost)
